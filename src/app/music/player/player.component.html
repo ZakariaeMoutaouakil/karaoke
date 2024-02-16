@@ -1,0 +1,36 @@
+<section>
+  <footer>
+    <button (click)="isPlaying.set(!isPlaying())" aria-label="Play or pause" mat-icon-button>
+      @if (isPlaying()) {
+        <mat-icon>play_arrow</mat-icon>
+      } @else {
+        <mat-icon>pause</mat-icon>
+      }
+    </button>
+    <div>
+      <p>00:11</p>
+      <mat-slider>
+        <input matSliderThumb>
+      </mat-slider>
+      <p>00:11</p>
+    </div>
+    <div>
+      <button aria-label="Play or pause"
+              mat-icon-button>
+        @if (volume.value === "0") {
+          <mat-icon>volume_off</mat-icon>
+        } @else if (+volume.value > 0 && +volume.value <= 33) {
+          <mat-icon>volume_mute</mat-icon>
+        } @else if (+volume.value > 33 && +volume.value <= 66) {
+          <mat-icon>volume_down</mat-icon>
+        } @else {
+          <mat-icon>volume_up</mat-icon>
+        }
+      </button>
+      <mat-slider>
+        <input #volume matSliderThumb [formControl]="myControl">
+      </mat-slider>
+      <p>{{ volume.value }}%</p>
+    </div>
+  </footer>
+</section>

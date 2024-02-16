@@ -9,13 +9,13 @@ import {concatMap, delay, from, mergeMap, of, Subscription} from "rxjs";
   styleUrl: './present.component.scss'
 })
 export class PresentComponent implements OnChanges {
+  protected readonly lyric = signal<string>("")
   @Input() present = ''
   @Input() interval = [0, 0]
-  protected readonly lyric = signal<string>("")
   private subscription: Subscription | undefined
   private typingSpeed = 100
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this.typingSpeed = (this.interval[1] - this.interval[0]) / this.present.split("").length
     this.subscription?.unsubscribe()
     this.lyric.set("")

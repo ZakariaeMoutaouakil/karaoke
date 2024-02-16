@@ -3,7 +3,7 @@ import {PastComponent} from "./past/past.component";
 import {PresentComponent} from "./present/present.component";
 import {FutureComponent} from "./future/future.component";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
-import {LyricsService} from "../service/lyrics/lyrics.service";
+import {LyricsService} from "../../service/lyrics/lyrics.service";
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -22,9 +22,9 @@ import {FormsModule} from "@angular/forms";
 })
 export class LyricsComponent implements OnInit {
   private readonly lyrics: { timestamp: number[], text: string }[]
-  protected past = "past"
-  protected future = "future"
-  protected present = "present"
+  protected past = ""
+  protected future = ""
+  protected present = ""
   protected value = 0
   protected currentInterval = [0, 0]
   private currentItem = 0
@@ -49,14 +49,6 @@ export class LyricsComponent implements OnInit {
     }
   }
 
-  log(){
-    console.log({
-      past: this.past,
-      present: this.present,
-      future: this.future
-    })
-  }
-
   ngOnInit(): void {
     setInterval(() => {
       for (const item in this.lyrics) {
@@ -66,10 +58,7 @@ export class LyricsComponent implements OnInit {
             || this.currentInterval[1] !== this.lyrics[item].timestamp[1])) {
           this.currentInterval = this.lyrics[item].timestamp
           this.currentItem = +item
-          console.log(this.currentInterval)
-          console.log(item)
           this.updateLyrics()
-          this.log()
           break
         }
       }
