@@ -8,6 +8,5 @@ import {Component, Input} from '@angular/core';
   styleUrl: './past.component.scss'
 })
 export class PastComponent {
-  @Input() past = '';
-
+  @Input() past = ''
 }

@@ -21,13 +21,13 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './lyrics.component.scss'
 })
 export class LyricsComponent implements OnInit {
-  lyrics: { timestamp: number[], text: string }[];
-  past = "past"
-  future = "future"
-  present = "present"
-  value = 0;
-  currentInterval = [0, 0];
-  currentItem = 0;
+  private readonly lyrics: { timestamp: number[], text: string }[]
+  protected past = "past"
+  protected future = "future"
+  protected present = "present"
+  protected value = 0
+  protected currentInterval = [0, 0]
+  private currentItem = 0
 
   constructor(private readonly lyricsService: LyricsService) {
     this.lyrics = this.lyricsService.fetchLyrics();

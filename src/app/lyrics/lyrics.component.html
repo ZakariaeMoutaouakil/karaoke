@@ -1,5 +1,5 @@
 <app-past [past]="past"></app-past>
-<app-present [present]="present"></app-present>
+<app-present [present]="present" [interval]="currentInterval"></app-present>
 <app-future [future]="future"></app-future>
 <mat-slider max="211.74" step="0.01">
   <input matSliderThumb [(ngModel)]="value" #slider>
