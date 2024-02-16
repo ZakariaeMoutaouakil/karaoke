@@ -17,7 +17,8 @@
     <div>
       <button aria-label="Mute or unmute"
               mat-icon-button
-      (click)="mute(htmlAudioElement)">
+      (click)="mute(htmlAudioElement)"
+      [color]="htmlAudioElement.muted? 'accent': 'primary'">
         @if (volume.value === "0") {
           <mat-icon>volume_off</mat-icon>
         } @else if (+volume.value > 0 && +volume.value <= 33) {

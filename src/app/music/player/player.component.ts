@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Output, signal, ViewChild} from '@angular/core';
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
@@ -24,6 +24,7 @@ import {TimestampPipe} from "../../pipe/timestamp/timestamp.pipe";
   styleUrl: './player.component.scss'
 })
 export class PlayerComponent implements AfterViewInit {
+  @Output() timestampEvent = new EventEmitter<number>();
   protected lastTimeStamp = 0
   protected readonly isPlaying = signal<boolean>(true)
   @ViewChild('htmlAudioElement') private htmlAudioElement!: ElementRef<HTMLAudioElement>
@@ -48,6 +49,7 @@ export class PlayerComponent implements AfterViewInit {
     // Update slider when audio time updates
     audio.addEventListener('timeupdate', () => {
       timestamp.value = audio.currentTime.toString()
+      this.timestampEvent.emit(+timestamp.value)
     });
 
     // Update audio time when slider value changes
@@ -60,11 +62,11 @@ export class PlayerComponent implements AfterViewInit {
     if (htmlAudioElement.paused) {
       htmlAudioElement
         .play()
-        .then(() => this.isPlaying.set(!this.isPlaying()))
+        .then(() => this.isPlaying.set(false))
         .catch()
     } else {
       htmlAudioElement.pause()
-      this.isPlaying.set(!this.isPlaying())
+      this.isPlaying.set(true)
     }
   }
 

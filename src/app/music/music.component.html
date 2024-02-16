@@ -1,4 +1,4 @@
 <main class="container">
-  <app-lyrics></app-lyrics>
-  <app-player></app-player>
+  <app-lyrics [timestamp]="timestamp"></app-lyrics>
+  <app-player (timestampEvent)="getTimestamp($event)"></app-player>
 </main>

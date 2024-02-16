@@ -1,10 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PastComponent} from "./past/past.component";
 import {PresentComponent} from "./present/present.component";
 import {FutureComponent} from "./future/future.component";
-import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {LyricsService} from "../../service/lyrics/lyrics.service";
-import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-lyrics',
@@ -12,21 +10,18 @@ import {FormsModule} from "@angular/forms";
   imports: [
     PastComponent,
     PresentComponent,
-    FutureComponent,
-    MatSlider,
-    MatSliderThumb,
-    FormsModule
+    FutureComponent
   ],
   templateUrl: './lyrics.component.html',
   styleUrl: './lyrics.component.scss'
 })
 export class LyricsComponent implements OnInit {
-  private readonly lyrics: { timestamp: number[], text: string }[]
+  @Input() timestamp = 0
   protected past = ""
   protected future = ""
   protected present = ""
-  protected value = 0
   protected currentInterval = [0, 0]
+  private readonly lyrics: { timestamp: number[], text: string }[]
   private currentItem = 0
 
   constructor(private readonly lyricsService: LyricsService) {
@@ -52,8 +47,8 @@ export class LyricsComponent implements OnInit {
   ngOnInit(): void {
     setInterval(() => {
       for (const item in this.lyrics) {
-        if (this.value >= this.lyrics[item].timestamp[0]
-          && this.value <= this.lyrics[item].timestamp[1]
+        if (this.timestamp >= this.lyrics[item].timestamp[0]
+          && this.timestamp <= this.lyrics[item].timestamp[1]
           && (this.currentInterval[0] !== this.lyrics[item].timestamp[0]
             || this.currentInterval[1] !== this.lyrics[item].timestamp[1])) {
           this.currentInterval = this.lyrics[item].timestamp
