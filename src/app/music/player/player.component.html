@@ -1,6 +1,6 @@
 <section>
   <footer>
-    <button (click)="isPlaying.set(!isPlaying())" aria-label="Play or pause" mat-icon-button>
+    <button (click)="play(htmlAudioElement)" aria-label="Play or pause" mat-icon-button>
       @if (isPlaying()) {
         <mat-icon>play_arrow</mat-icon>
       } @else {
@@ -8,15 +8,16 @@
       }
     </button>
     <div>
-      <p>00:11</p>
-      <mat-slider>
-        <input matSliderThumb>
+      <p>{{ +timestamp.value|timestamp }}</p>
+      <mat-slider [max]="lastTimeStamp">
+        <input matSliderThumb #timestamp>
       </mat-slider>
-      <p>00:11</p>
+      <p>{{ lastTimeStamp|timestamp }}</p>
     </div>
     <div>
-      <button aria-label="Play or pause"
-              mat-icon-button>
+      <button aria-label="Mute or unmute"
+              mat-icon-button
+      (click)="mute(htmlAudioElement)">
         @if (volume.value === "0") {
           <mat-icon>volume_off</mat-icon>
         } @else if (+volume.value > 0 && +volume.value <= 33) {
@@ -28,9 +29,12 @@
         }
       </button>
       <mat-slider>
-        <input #volume matSliderThumb [formControl]="myControl">
+        <input #volume matSliderThumb>
       </mat-slider>
       <p>{{ volume.value }}%</p>
     </div>
   </footer>
 </section>
+<audio controls style="display: none" #htmlAudioElement>
+  <source src="assets/audio.mp3" type="audio/mpeg">
+</audio>
