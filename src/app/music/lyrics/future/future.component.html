@@ -1,1 +1,3 @@
-<p>{{ future }}</p>
+<p
+  [@state]="state"
+  (@state.done)="endAnimation($event)">{{ future }}</p>

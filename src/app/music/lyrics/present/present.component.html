@@ -1,2 +1,3 @@
-<!--<p>{{ lyric() }}</p>-->
-<p>{{present}}</p>
+<p
+  [@state]="state"
+  (@state.done)="endAnimation($event)">{{ present }}</p>
