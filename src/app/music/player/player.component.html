@@ -9,15 +9,15 @@
     </button>
     <div>
       <p>{{ +timestamp.value|timestamp }}</p>
-      <mat-slider [max]="lastTimeStamp">
-        <input matSliderThumb #timestamp>
+      <mat-slider [max]="lastTimeStamp" #timestampSlider showTickMarks>
+        <input matSliderThumb #timestamp [(ngModel)]="timestampValue">
       </mat-slider>
       <p>{{ lastTimeStamp|timestamp }}</p>
     </div>
     <div>
       <button aria-label="Mute or unmute"
               mat-icon-button
-      (click)="mute(htmlAudioElement)"
+      (click)="htmlAudioElement.muted = !htmlAudioElement.muted"
       [color]="htmlAudioElement.muted? 'accent': 'primary'">
         @if (volume.value === "0") {
           <mat-icon>volume_off</mat-icon>

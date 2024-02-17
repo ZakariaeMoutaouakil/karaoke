@@ -9,8 +9,8 @@ footer {
   border-radius: 2em;
   width: 60%;
   height: 60%;
-  display: grid;
-  grid-template-columns: 20% 50% 30%;
+  display: flex;
+  justify-content: space-between;
 }
 
 p {

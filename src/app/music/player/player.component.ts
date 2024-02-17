@@ -6,6 +6,7 @@ import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {NgStyle} from "@angular/common";
 import {LyricsService} from "../../service/lyrics/lyrics.service";
 import {TimestampPipe} from "../../pipe/timestamp/timestamp.pipe";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-player',
@@ -18,7 +19,8 @@ import {TimestampPipe} from "../../pipe/timestamp/timestamp.pipe";
     MatSlider,
     MatSliderThumb,
     NgStyle,
-    TimestampPipe
+    TimestampPipe,
+    FormsModule
   ],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
@@ -27,6 +29,7 @@ export class PlayerComponent implements AfterViewInit {
   @Output() timestampEvent = new EventEmitter<number>();
   protected lastTimeStamp = 0
   protected readonly isPlaying = signal<boolean>(true)
+  protected timestampValue = '0'
   @ViewChild('htmlAudioElement') private htmlAudioElement!: ElementRef<HTMLAudioElement>
   @ViewChild('timestamp') private timestamp!: ElementRef<HTMLInputElement>
   @ViewChild('volume') private volume!: ElementRef<HTMLInputElement>
@@ -48,11 +51,11 @@ export class PlayerComponent implements AfterViewInit {
 
     // Update slider when audio time updates
     audio.addEventListener('timeupdate', () => {
-      timestamp.value = audio.currentTime.toString()
+      this.timestampValue = audio.currentTime.toString()
       this.timestampEvent.emit(+timestamp.value)
     });
 
-    // Update audio time when slider value changes
+    // Update audio time when slider timestampValue changes
     timestamp.addEventListener('input', () => {
       audio.currentTime = parseFloat(timestamp.value)
     });
@@ -68,10 +71,6 @@ export class PlayerComponent implements AfterViewInit {
       htmlAudioElement.pause()
       this.isPlaying.set(true)
     }
-  }
-
-  mute(htmlAudioElement: HTMLAudioElement) {
-    htmlAudioElement.muted = !htmlAudioElement.muted
   }
 }
 
