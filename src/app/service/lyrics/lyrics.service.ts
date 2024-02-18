@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Lyrics} from "./lyrics";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,6 @@ export class LyricsService {
   }
 
   fetchLyrics(formData: FormData) {
-    return this.httpClient.post<Lyrics>("http://localhost:8000/", formData)
+    return this.httpClient.post<Lyrics>(environment.apiUrl, formData)
   }
 }
