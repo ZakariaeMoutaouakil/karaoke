@@ -25,7 +25,7 @@ export class PastComponent implements OnChanges {
   @Input() past = ''
   state = 'base'
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this.state = 'base' ? this.state = 'moving' : this.state = 'base'
   }
 

@@ -35,7 +35,7 @@ export class PlayerComponent implements AfterViewInit {
   @ViewChild('volume') private volume!: ElementRef<HTMLInputElement>
 
   constructor(private readonly lyricsService: LyricsService) {
-    this.lastTimeStamp = this.lyricsService.fetchLyrics().slice(-1)[0].timestamp[1]
+    this.lastTimeStamp = this.lyricsService.lyrics.slice(-1)[0].timestamp[1]
   }
 
   ngAfterViewInit(): void {
@@ -44,6 +44,7 @@ export class PlayerComponent implements AfterViewInit {
     const volume: HTMLInputElement = this.volume.nativeElement
 
     audio.volume = 0
+    audio.src=URL.createObjectURL(this.lyricsService.audioSource!)
 
     volume.addEventListener('input', () => {
       audio.volume = parseFloat(volume.value) / 100

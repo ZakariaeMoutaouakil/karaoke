@@ -1,0 +1,24 @@
+<div class="container">
+  @if (isLoading()) {
+    <mat-progress-bar mode="query" color="accent"></mat-progress-bar>
+  }
+  <section style="display:flex; align-items: center; flex-direction: column">
+    <p>Upload an MP3 song to generate lyrics from :</p>
+    <button (click)="input.click()"
+            [ngStyle]="{'color': isLoading() ? 'gray' : '', 'opacity': isLoading() ? '5%' : '100%'}"
+            aria-label="Upload"
+            color="primary"
+            mat-fab>
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    @if (isLoading()) {
+      <p style="margin-top: 10%">Your file is being processed. Please stay patient.</p>
+    }
+  </section>
+</div>
+<input #input
+       (change)="uploadFile($event)"
+       [disabled]="isLoading()"
+       accept=".mp3"
+       style="display:none;"
+       type="file"/>

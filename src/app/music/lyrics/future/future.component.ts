@@ -25,7 +25,7 @@ export class FutureComponent implements OnChanges {
   @Input() future = ''
   state = 'base'
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this.state = 'base' ? this.state = 'moving' : this.state = 'base'
   }
 

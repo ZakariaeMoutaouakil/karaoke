@@ -3,6 +3,7 @@ import {PastComponent} from "./past/past.component";
 import {PresentComponent} from "./present/present.component";
 import {FutureComponent} from "./future/future.component";
 import {LyricsService} from "../../service/lyrics/lyrics.service";
+import {Lyrics} from "../../service/lyrics/lyrics";
 
 @Component({
   selector: 'app-lyrics',
@@ -21,11 +22,11 @@ export class LyricsComponent implements OnInit {
   protected future = ""
   protected present = ""
   protected currentInterval = [0, 0]
-  private readonly lyrics: { timestamp: number[], text: string }[]
+  private readonly lyrics: Lyrics
   private currentItem = 0
 
   constructor(private readonly lyricsService: LyricsService) {
-    this.lyrics = this.lyricsService.fetchLyrics();
+    this.lyrics = this.lyricsService.lyrics
   }
 
   updateLyrics() {
@@ -57,6 +58,6 @@ export class LyricsComponent implements OnInit {
           break
         }
       }
-    }, 10)
+    }, 1000)
   }
 }

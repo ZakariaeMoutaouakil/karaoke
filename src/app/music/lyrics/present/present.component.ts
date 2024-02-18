@@ -17,7 +17,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         transform: 'translateY(1em)',
         opacity: '50%'
       })),
-      transition('moving => base', animate(200))
+      transition('moving => base', animate(100))
     ])
   ]
 })
@@ -26,7 +26,7 @@ export class PresentComponent implements OnChanges {
 
   state = 'base'
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this.state = 'base' ? this.state = 'moving' : this.state = 'base'
   }
 
