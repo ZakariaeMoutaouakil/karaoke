@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PastComponent} from "./past/past.component";
 import {PresentComponent} from "./present/present.component";
 import {FutureComponent} from "./future/future.component";
@@ -16,7 +16,7 @@ import {Lyrics} from "../../service/lyrics/lyrics";
   templateUrl: './lyrics.component.html',
   styleUrl: './lyrics.component.scss'
 })
-export class LyricsComponent implements OnInit {
+export class LyricsComponent implements OnInit, OnDestroy {
   @Input() timestamp = 0
   protected past = ""
   protected future = ""
@@ -24,9 +24,15 @@ export class LyricsComponent implements OnInit {
   protected currentInterval = [0, 0]
   private readonly lyrics: Lyrics
   private currentItem = 0
+  private interval: number | undefined
 
   constructor(private readonly lyricsService: LyricsService) {
     this.lyrics = this.lyricsService.lyrics
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval)
+    this.interval = undefined
   }
 
   updateLyrics() {
@@ -46,7 +52,7 @@ export class LyricsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       for (const item in this.lyrics) {
         if (this.timestamp >= this.lyrics[item].timestamp[0]
           && this.timestamp <= this.lyrics[item].timestamp[1]

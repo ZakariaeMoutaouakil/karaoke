@@ -5,7 +5,9 @@
   <section style="display:flex; align-items: center; flex-direction: column">
     <p>Upload an MP3 song to generate lyrics from :</p>
     <button (click)="input.click()"
-            [ngStyle]="{'color': isLoading() ? 'gray' : '', 'opacity': isLoading() ? '5%' : '100%'}"
+            [ngStyle]="{'color': isLoading() ? 'gray' : '',
+             'opacity': isLoading() ? '5%' : '100%',
+             'cursor': isLoading() ? 'not-allowed' : ''}"
             aria-label="Upload"
             color="primary"
             mat-fab>
