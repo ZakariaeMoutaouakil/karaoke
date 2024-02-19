@@ -1,12 +1,13 @@
-import {Component, signal} from '@angular/core';
+import {Component, OnDestroy, signal} from '@angular/core';
 import {MatFabButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {LyricsService} from "../service/lyrics/lyrics.service";
 import {Router} from "@angular/router";
 import {MatProgressBar} from "@angular/material/progress-bar";
-import {take} from "rxjs";
+import {finalize, Subscription, take} from "rxjs";
 import {NgStyle} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-upload',
@@ -20,17 +21,24 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss'
 })
-export class UploadComponent {
+export class UploadComponent implements OnDestroy {
   protected readonly isLoading = signal<boolean>(false)
   private readonly requiredFileType = "audio/mpeg"
+  private readonly subscription: Subscription | undefined
 
   constructor(private readonly lyricsService: LyricsService,
               private readonly router: Router,
               private readonly _snackBar: MatSnackBar) {
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
+  }
+
   uploadFile($event: Event) {
-    console.log(($event.target as HTMLInputElement).files)
+    if (!environment.production) {
+      console.log(($event.target as HTMLInputElement).files)
+    }
     const files = ($event.target as HTMLInputElement).files
     if (!!files && (files.length > 0)) {
       const file: File = files[0]
@@ -52,7 +60,8 @@ export class UploadComponent {
 
         this.isLoading.set(true)
         this.lyricsService.fetchLyrics(formData).pipe(
-          take(1) // Ensure the subscription completes after emitting one value
+          take(1), // Ensure the subscription completes after emitting one value
+          finalize(() => this.subscription?.unsubscribe())
         ).subscribe({
           next: lyrics => {
             this.lyricsService.setLyrics(lyrics, durationInSeconds)
