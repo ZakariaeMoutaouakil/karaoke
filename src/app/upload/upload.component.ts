@@ -7,7 +7,6 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {finalize, Subscription, take} from "rxjs";
 import {NgStyle} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-upload',
@@ -36,9 +35,7 @@ export class UploadComponent implements OnDestroy {
   }
 
   uploadFile($event: Event) {
-    if (!environment.production) {
-      console.log(($event.target as HTMLInputElement).files)
-    }
+    console.log(($event.target as HTMLInputElement).files)
     const files = ($event.target as HTMLInputElement).files
     if (!!files && (files.length > 0)) {
       const file: File = files[0]
