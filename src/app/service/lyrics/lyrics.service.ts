@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Lyrics} from "./lyrics";
 import {environment} from "../../../environments/environment";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import {environment} from "../../../environments/environment";
 export class LyricsService {
 
   audioSource: File | undefined
+  private readonly lyricsOnScreenSubject$ = new BehaviorSubject<boolean>(false) // Initialize with default value
+  lyricsOnScreen$ = this.lyricsOnScreenSubject$.asObservable()
 
   constructor(private readonly httpClient: HttpClient) {
   }
@@ -22,6 +25,10 @@ export class LyricsService {
 
   public get lyrics() {
     return this._lyrics
+  }
+
+  updateData(newData: boolean) {
+    this.lyricsOnScreenSubject$.next(newData)
   }
 
   public setLyrics(lyrics: Lyrics, durationInSeconds: number) {

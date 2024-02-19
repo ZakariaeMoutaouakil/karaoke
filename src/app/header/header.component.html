@@ -1,4 +1,4 @@
 <mat-toolbar style="display: flex; justify-content: center"
-             [ngClass]="{lyrics: false, upload: true}">
+             [ngClass]="{lyrics: lyricsOnScreen(), upload: !lyricsOnScreen()}">
   <span><a routerLink="/" style="text-decoration: none;">Karaoké</a></span>
 </mat-toolbar>

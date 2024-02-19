@@ -28,6 +28,7 @@ export class UploadComponent implements OnDestroy {
   constructor(private readonly lyricsService: LyricsService,
               private readonly router: Router,
               private readonly _snackBar: MatSnackBar) {
+    this.lyricsService.updateData(false)
   }
 
   ngOnDestroy(): void {
