@@ -1,27 +1,43 @@
-# Karaoke
+# Karaoke Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+This project is a Musixmatch clone developed using Angular for the frontend, and Django for the backend.
 
-## Development server
+## See the demo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+You can try this website in this [link](https://karaoke-b21f4.web.app/).
 
-## Code scaffolding
+## What I learned in this project
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Gradio:** Called Gradio interfaces as an API.
+- **Hugging Face Deployment:** Used to deploy the model as a hugging face space.
+- **Speech Transcription:** Used OpenAI's [Whisper](https://huggingface.co/openai/whisper-large-v3) model for speech to text generation.
+- **Audio Separation:** Used Deezer's [Spleeter](https://research.deezer.com/projects/spleeter.html) for vocal extraction.
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Audio File Upload: to generate music from.
+- Integrated music player.
+- Lyrics synchronization with the music playback.
 
-## Running unit tests
+## Prerequisites
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Before running the application, ensure you have the following installed:
 
-## Running end-to-end tests
+- Node.js and npm
+- Angular CLI
+- Git
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Getting Started
 
-## Further help
+1. Clone the repository:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+git clone https://github.com/ZakariaeMoutaouakil/karaoke.git
+cd instagram-clone
+```
+
+2. Frontend Setup:
+
+```bash
+npm install && ng serve
+```
