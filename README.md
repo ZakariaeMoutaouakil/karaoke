@@ -33,7 +33,7 @@ Before running the application, ensure you have the following installed:
 
 ```bash
 git clone https://github.com/ZakariaeMoutaouakil/karaoke.git
-cd instagram-clone
+cd karaoke
 ```
 
 2. Frontend Setup:
